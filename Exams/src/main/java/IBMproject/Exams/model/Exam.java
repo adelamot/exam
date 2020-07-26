@@ -15,6 +15,7 @@ public class Exam {
     private String course;
     private String teacher;
 
+    //i can chose to not expose my atributes name to the client using JsonProperty .
     public Exam(@JsonProperty("id") UUID id, @JsonProperty("academic_year") String academic_year,
                 @JsonProperty("semester")int semester, @JsonProperty("year")int year,
                 @JsonProperty("faculty")String faculty, @JsonProperty("seats")int seats,

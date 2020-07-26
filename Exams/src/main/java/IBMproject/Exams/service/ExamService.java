@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 //class used for changing databases
 //we will use dependency injection later to change it
@@ -30,5 +32,20 @@ public class ExamService {
     public List<Exam> getAllExams()
     {
         return examDao.selectAllExams();
+    }
+
+    public Optional<Exam> getExamById(UUID id)
+    {
+        return examDao.selectExamById(id);
+    }
+
+    public int deleteExam(UUID id)
+    {
+        return examDao.deleteExamById(id);
+    }
+
+    public int updateExam(UUID id, Exam newExam)
+    {
+        return examDao.updateExamById(id,newExam);
     }
 }
