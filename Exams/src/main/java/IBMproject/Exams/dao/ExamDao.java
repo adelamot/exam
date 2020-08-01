@@ -23,7 +23,8 @@ public interface ExamDao {
 
     List<Exam> selectAllExams();
 
-    Optional<Exam> selectExamById(UUID Id);
+    //Optional<Exam> selectExamById(UUID Id);
+    Exam selectExamById(UUID Id);
 
     int deleteExamById(UUID id);
 

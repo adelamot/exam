@@ -2,17 +2,26 @@ package IBMproject.Exams.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotBlank;
 import java.util.UUID;
 
 //A model class for the informations about the exams
 public class Exam {
     private final UUID id;
+    @NotBlank
     private String academic_year;
+    @Min(1)
     private int semester;
+    @Min(1)
     private int year;
+    @NotBlank
     private String faculty;
+    @Min(0)
     private int seats;
+    @NotBlank
     private String course;
+    @NotBlank
     private String teacher;
 
     //i can chose to not expose my atributes name to the client using JsonProperty .

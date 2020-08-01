@@ -3,8 +3,11 @@ package IBMproject.Exams.api;
 import IBMproject.Exams.model.Exam;
 import IBMproject.Exams.service.ExamService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.lang.NonNull;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
@@ -24,7 +27,7 @@ public class ExamController {
     }
 
     @PostMapping // handles the post request
-    public void addExam(@RequestBody  Exam exam)
+    public void addExam(@Valid @NonNull @RequestBody  Exam exam)
     {
         examService.addExam(exam);
     }
@@ -38,8 +41,8 @@ public class ExamController {
     @GetMapping(path ="{id}")
     public Exam getExamById(@PathVariable("id") UUID id)
     {
-        return examService.getExamById(id)
-                .orElse(null);
+        return examService.getExamById(id);
+          //      .orElse(null); here
         // .orElseThrow(() -> new RuntimeException("No exam found with id: " + id) );
 
     }
@@ -51,7 +54,7 @@ public class ExamController {
     }
 
     @PutMapping(path ="{id}")
-    public void updateExam(@PathVariable("id")UUID id , @RequestBody Exam examToUpdate)
+    public void updateExam(@PathVariable("id")UUID id ,@Valid @NonNull @RequestBody Exam examToUpdate)
     {
         examService.updateExam(id,examToUpdate);
     }
