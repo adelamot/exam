@@ -20,7 +20,7 @@ public class ExamService {
 
     @Autowired// injects object dependency implicitly
     //just finds for you what needs to be injected where, and does that for you.
-    public ExamService(@Qualifier("temporaryDataBase") ExamDao examDao) { //Qualifier used to switch between interface implementations
+    public ExamService(@Qualifier("database") ExamDao examDao) { //Qualifier used to switch between interface implementations
         this.examDao = examDao;
     }
 
@@ -34,7 +34,13 @@ public class ExamService {
         return examDao.selectAllExams();
     }
 
-    public Optional<Exam> getExamById(UUID id)
+    /*public Optional<Exam> getExamById(UUID id)
+    {
+        return examDao.selectExamById(id);
+    }
+
+     */
+    public Exam getExamById(UUID id)
     {
         return examDao.selectExamById(id);
     }

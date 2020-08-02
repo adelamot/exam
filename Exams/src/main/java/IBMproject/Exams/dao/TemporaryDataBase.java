@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 @Repository("temporaryDataBase") //marks a class that directly accesses the database
-public class  TemporaryDataBase implements ExamDao {
+public abstract class  TemporaryDataBase implements ExamDao {
 
     private static List<Exam> Db = new ArrayList<>();
 
@@ -29,12 +29,14 @@ public class  TemporaryDataBase implements ExamDao {
     }
 
     //search in database if we have a person with the specific id
+    /*
     @Override
     public Optional<Exam> selectExamById(UUID id) {
         return Db.stream()
                 .filter(exam->exam.getId().equals(id))
                 .findFirst();
     }
+
 
     @Override
     public int deleteExamById(UUID id) {
@@ -63,5 +65,5 @@ public class  TemporaryDataBase implements ExamDao {
                 })
                 .orElse(0);
     }
-
+    */
 }
