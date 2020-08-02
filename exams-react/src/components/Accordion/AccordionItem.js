@@ -12,9 +12,11 @@ import './accordion.css';
 import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save'
 import AccordionActions from '@material-ui/core/AccordionActions';
-import axios from 'axios';
+import {updateExam} from "../../services";
+import Swal from "sweetalert2";
 
 export default class ActionsInAccordionSummary extends React.Component {
+
     constructor(props){
         super(props);
         this.state = {
@@ -40,42 +42,43 @@ export default class ActionsInAccordionSummary extends React.Component {
         this.setState({[event.target.name]: event.target.value});
     }
 
-    saveChanges = () => {
-        console.log("Saving...");
-        this.baseState = this.state;
-        this.setState({disabledInputs: true, hiddenInputs: true});
-        let examData = {
-            "academicYear": this.state.academicYear,
-            "semester": this.state.semester,
-            "studyYear": this.state.studyYear,
-            "faculty": this.state.faculty,
-            "seats": this.state.seats,
-            "course": this.state.course,
-            "teacher": this.state.teacher,
-            "date": this.state.date,
-            "id": this.state.id
-        }
-        axios.put('localhost:3000'+"/update", examData)
-            .then(res=> {
-            console.log(res);
-            console.log(res.data);
-            })
-            .catch(res=> {
-                console.log(res.error);
-            });
+    updateCallback = (response) => {
+        if(response.status === 200)
+            Swal.fire({text: response.data});
+        else
+            Swal.fire({text:"Exam wasn't updated"});
     }
+    saveHandler = () => {
+            // this.setState({baseState: this.state});
+            this.setState({disabledInputs: true, hiddenInputs: true});
 
+            let newExam = {
+                "academicYear": this.state.academicYear,
+                "semester": this.state.semester,
+                "studyYear": this.state.studyYear,
+                "faculty": this.state.faculty,
+                "seats": this.state.seats,
+                "course": this.state.course,
+                "teacher": this.state.teacher,
+                "date": this.state.date,
+                "id": this.state.id
+            }
+
+            updateExam(this.updateCallback, newExam);
+    }
 
     cancelHandler = () => {
         this.setState(this.baseState);
         this.setState({disabledInputs: true, hiddenInputs: true});
     }
 
-
     editExam = () => {
-        console.log("Edit");
+        let st = [];
+        st.concat(this.state);
+        this.setState({baseState: st });
         this.setState({disabledInputs: false, hiddenInputs: false});
     }
+
     render() {
         return (
 
@@ -135,6 +138,7 @@ export default class ActionsInAccordionSummary extends React.Component {
                                                                      margin="normal"
                                                                      variant="standard"
                         />}
+
                         <TextField className="examData"
                                    label="Session/Semester"
                                    name="semester"
@@ -184,18 +188,19 @@ export default class ActionsInAccordionSummary extends React.Component {
                                 onClick={this.cancelHandler.bind(this)}>
                             Cancel
                         </Button>}
-                    <Button id="edit-button"
-                            variant="outlined"
-                            size="small"
-                            color="primary"
-                            onClick={this.editExam.bind(this)}>
+                    {this.state.disabledInputs ? <Button id="edit-button"
+                                                         variant="outlined"
+                                                         size="small"
+                                                         color="primary"
+                                                         onClick={this.editExam}>
                         Edit
-                    </Button>
-                    <IconButton className="save-button"
+                    </Button> : null }
+                    {this.state.disabledInputs ? null :
+                        <IconButton className="save-button"
                                 aria-label="save"
-                                onClick={this.saveChanges.bind(this)}>
+                                onClick={this.saveHandler.bind(this)}>
                         <SaveIcon id="save-icon"/>
-                    </IconButton>
+                    </IconButton>}
                 </AccordionActions>
             </Accordion>
 
