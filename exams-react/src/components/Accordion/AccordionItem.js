@@ -14,28 +14,26 @@ import SaveIcon from '@material-ui/icons/Save'
 import AccordionActions from '@material-ui/core/AccordionActions';
 import {updateExam} from "../../services";
 import Swal from "sweetalert2";
-
 export default class ActionsInAccordionSummary extends React.Component {
 
     constructor(props){
         super(props);
         this.state = {
-            disabledInputs: true,
-            hiddenInputs: true,
-            academicYear: this.props.academicYear,
+            editMode: false,
+            expanded: this.props.expanded,
+            inputError: false,
+            prevState: null,
+            deleteExam: this.props.handleDeleteExam,
+            id: this.props.id,
+            academic_year: this.props.academic_year,
             semester: this.props.semester,
-            studyYear: this.props.studyYear,
+            year: this.props.year,
             faculty: this.props.faculty,
             seats: this.props.seats,
             course: this.props.course,
             teacher: this.props.teacher,
-            date: this.props.date,
-            id: this.props.id,
-            deleteExam: this.props.handleDeleteExam,
-            expanded: this.props.expanded,
-            inputError: false
+            date: this.props.date
         }
-        this.baseState = this.state;
     }
 
     changeHandler = (event) => {
@@ -43,40 +41,37 @@ export default class ActionsInAccordionSummary extends React.Component {
     }
 
     updateCallback = (response) => {
-        if(response.status === 200)
-            Swal.fire({text: response.data});
-        else
-            Swal.fire({text:"Exam wasn't updated"});
+        if(response.status !== 200) {
+            Swal.fire({text: "Exam wasn't updated"});
+            this.cancelHandler();
+        }
     }
+
     saveHandler = () => {
-            // this.setState({baseState: this.state});
-            this.setState({disabledInputs: true, hiddenInputs: true});
 
-            let newExam = {
-                "academicYear": this.state.academicYear,
-                "semester": this.state.semester,
-                "studyYear": this.state.studyYear,
-                "faculty": this.state.faculty,
-                "seats": this.state.seats,
-                "course": this.state.course,
-                "teacher": this.state.teacher,
-                "date": this.state.date,
-                "id": this.state.id
-            }
+        this.setState({editMode: false});
+        let newExam = {
+            "id": this.state.id,
+            "academic_year": this.state.academic_year,
+            "semester": this.state.semester,
+            "year": this.state.year,
+            "faculty": this.state.faculty,
+            "seats": this.state.seats,
+            "course": this.state.course,
+            "teacher": this.state.teacher,
+            "date": this.state.date
+        }
 
-            updateExam(this.updateCallback, newExam);
+        updateExam(this.updateCallback, newExam);
     }
 
     cancelHandler = () => {
-        this.setState(this.baseState);
-        this.setState({disabledInputs: true, hiddenInputs: true});
+        this.setState(this.state.prevState);
     }
 
     editExam = () => {
-        let st = [];
-        st.concat(this.state);
-        this.setState({baseState: st });
-        this.setState({disabledInputs: false, hiddenInputs: false});
+        this.setState({prevState: this.state});
+        this.setState({editMode: true});
     }
 
     render() {
@@ -106,63 +101,62 @@ export default class ActionsInAccordionSummary extends React.Component {
                                    name="faculty"
                                    value={this.state.faculty}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
-                                   error = {this.state.inputError}
                         />
                         <TextField className="examData"
                                    label="Teacher"
                                    name="teacher"
                                    value={this.state.teacher}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
                         />
-                        {this.state.hiddenInputs ? null : <TextField className="examData"
-                                                                     label="Course"
-                                                                     name="course"
-                                                                     value={this.state.course}
-                                                                     onChange={this.changeHandler}
-                                                                     disabled={this.state.disabledInputs}
-                                                                     margin="normal"
-                                                                     variant="standard"
-                        />}
-                        {this.state.hiddenInputs ? null : <TextField className="examData"
-                                                                     label="Date"
-                                                                     name="date"
-                                                                     value={this.state.date}
-                                                                     onChange={this.changeHandler}
-                                                                     disabled={this.state.disabledInputs}
-                                                                     margin="normal"
-                                                                     variant="standard"
-                        />}
+                        {this.state.editMode ? <TextField className="examData"
+                                                          label="Course"
+                                                          name="course"
+                                                          value={this.state.course}
+                                                          onChange={this.changeHandler}
+                                                          disabled={!(this.state.editMode)}
+                                                          margin="normal"
+                                                          variant="standard"
+                        /> : null}
+                        {this.state.editMode ? <TextField className="examData"
+                                                          label="Date"
+                                                          name="date"
+                                                          value={this.state.date}
+                                                          onChange={this.changeHandler}
+                                                          disabled={!(this.state.editMode)}
+                                                          margin="normal"
+                                                          variant="standard"
+                        /> : null}
 
                         <TextField className="examData"
                                    label="Session/Semester"
                                    name="semester"
                                    value={this.state.semester}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
                         />
                         <TextField className="examData"
                                    label="Year of study"
-                                   name="studyYear"
-                                   value={this.state.studyYear}
+                                   name="year"
+                                   value={this.state.year}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
                         />
                         <TextField className="examData"
                                    label="Academic Year"
-                                   name="academicYear"
-                                   value={this.state.academicYear}
+                                   name="academic_year"
+                                   value={this.state.academic_year}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
                         />
@@ -171,7 +165,7 @@ export default class ActionsInAccordionSummary extends React.Component {
                                    name="seats"
                                    value={this.state.seats}
                                    onChange={this.changeHandler}
-                                   disabled={this.state.disabledInputs}
+                                   disabled={!(this.state.editMode)}
                                    margin="normal"
                                    variant="standard"
                         />
@@ -180,27 +174,26 @@ export default class ActionsInAccordionSummary extends React.Component {
                 </AccordionDetails>
 
                 <AccordionActions>
-                    {this.state.disabledInputs ? null :
+                    {this.state.editMode ?
                         <Button id="cancel-button"
                                 variant="outlined"
                                 size="small"
                                 color="primary"
-                                onClick={this.cancelHandler.bind(this)}>
+                                onClick={this.cancelHandler}>
                             Cancel
-                        </Button>}
-                    {this.state.disabledInputs ? <Button id="edit-button"
-                                                         variant="outlined"
-                                                         size="small"
-                                                         color="primary"
-                                                         onClick={this.editExam}>
+                        </Button> : null }
+                    {this.state.editMode ? null : <Button id="edit-button"
+                                                          variant="outlined"
+                                                          size="small"
+                                                          color="primary"
+                                                          onClick={this.editExam}>
                         Edit
-                    </Button> : null }
-                    {this.state.disabledInputs ? null :
-                        <IconButton className="save-button"
-                                aria-label="save"
-                                onClick={this.saveHandler.bind(this)}>
+                    </Button>}
+                    {this.state.editMode ? <IconButton className="save-button"
+                                                       aria-label="save"
+                                                       onClick={this.saveHandler}>
                         <SaveIcon id="save-icon"/>
-                    </IconButton>}
+                    </IconButton> : null}
                 </AccordionActions>
             </Accordion>
 

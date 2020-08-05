@@ -19,6 +19,7 @@ label {
     max-width: 600px;
     margin: auto;
 }
+
 #accordion-item {
     background-color: rgba(202, 240, 248, 0.8);
     border-radius: 10px;
@@ -33,4 +34,10 @@ label {
 #edit-button, #cancel-button {
     color: rgba(3, 4, 94, 1);
     border-color: rgba(3, 4, 94, 1);
+}
+
+@media (max-width: 768px){
+    .accordion-container {
+        max-width: 80%;
+    }
 }

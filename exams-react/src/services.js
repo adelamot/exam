@@ -9,7 +9,7 @@ export const getExamList = (setExamList) => {
             setExamList(response.data);
         })
         .catch(response => {
-           setExamList(response.error);
+            setExamList(response.error);
         });
 };
 
@@ -32,3 +32,4 @@ export const updateExam = (handleUpdate, data) => {
             handleUpdate("Error="+res);
         });
 }
+

@@ -3,8 +3,7 @@ import AccordionItem from "./AccordionItem";
 import {deleteExam, getExamList} from "../../services";
 import Swal from "sweetalert2";
 import LinearProgress from "@material-ui/core/LinearProgress";
-
-
+import './accordion.css';
 
 export default class AccordionContainer extends React.Component {
 
@@ -44,22 +43,20 @@ export default class AccordionContainer extends React.Component {
     }
 
     handleDeleteExam = (id) => {
-         Swal.fire({
-             title: 'Are you sure?',
-             text: "You won't be able to revert this!",
-             icon: 'warning',
-             showCancelButton: true,
-             confirmButtonColor: '#d33',
-             cancelButtonColor: '#00b4d8',
-             confirmButtonText: 'Yes, delete it!'
-         }).then((result) => {
-             if (result.value) {
-                 deleteExam(this.deleteCallback, id);
-             }
-         });
-
-     }
-
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#00b4d8',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.value) {
+                deleteExam(this.deleteCallback, id);
+            }
+        });
+    }
 
     render() {
         return (
@@ -72,9 +69,9 @@ export default class AccordionContainer extends React.Component {
                 {this.state.isLoaded ? this.state.examData.length ? (this.state.examData.map( exam =>
 
                     <AccordionItem key={exam.id}
-                                   academicYear={exam.academicYear}
+                                   academic_year={exam.year}
                                    semester={exam.semester}
-                                   studyYear={exam.studyYear}
+                                   year={exam.year}
                                    faculty={exam.faculty}
                                    seats={exam.seats}
                                    course={exam.course}
