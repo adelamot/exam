@@ -16,27 +16,32 @@ public class ExamController {
     @Autowired
     private ExamService examService;
 
+    @CrossOrigin(origins="http://localhost:3000")
     @GetMapping
     public ResponseEntity<List<Exam>> getAllExams(){
         return ResponseEntity.ok().body(this.examService.getAllExams());
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
     @GetMapping("/{id}")
     public ResponseEntity<Exam> getExamsById(@PathVariable (value = "id") long examId){
         return ResponseEntity.ok().body(this.examService.getExamsById(examId));
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
     @PostMapping
     public ResponseEntity<Exam> createExam(@RequestBody Exam exam){
         return ResponseEntity.ok().body(this.examService.createExam(exam));
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
     @PutMapping("/{id}")
     public ResponseEntity<Exam> updateExam(@RequestBody Exam exam, @PathVariable ("id") long examId){
         exam.setId(examId);
         return ResponseEntity.ok().body(this.examService.updateExam(exam,examId));
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
     @DeleteMapping("/{id}")
     public HttpStatus deleteExam(@PathVariable ("id") long examId){
         this.examService.deleteExam(examId);
