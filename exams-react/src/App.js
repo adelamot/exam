@@ -1,40 +1,24 @@
-import React, {useState, useRef} from 'react';
+import React from 'react';
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import './App.css';
-import {useOnClickOutside} from './hooks';
-import { ThemeProvider } from 'styled-components';
-import { GlobalStyles } from './global';
-import { theme } from './theme';
-import { Burger, Menu } from './components';
-import FocusLock from 'react-focus-lock';
 import './components/Accordion/accordion.css';
 import AccordionContainer from "./components/Accordion/AccordionContainer";
+import MyTheme from "./MyTheme";
+import Form from "./components/Form/Form";
 
 function App() {
 
-  const [open, setOpen] = useState(false);
-  const node= useRef();
-  const menuId="main-menu";
-
-
-  useOnClickOutside(node, () => setOpen(false));
-
   return (
-      <div>
-
-      <ThemeProvider theme={theme}>
-        <>
-          <GlobalStyles />
-          <div ref={node}>
-            <FocusLock disabled={!open}>
-              <Burger open={open} setOpen={setOpen} aria-controls={menuId} />
-              <Menu open={open} setOpen={setOpen} id={menuId} />
-            </FocusLock>
-          </div>
-        </>
-      </ThemeProvider>
-
-      <AccordionContainer/>
-      </div>
+      <Router>
+        <div>
+            <MyTheme/>
+            {/*<nav id="myNav"> my navbar </nav>*/}
+            <Switch>
+                <Route exact path = "/" component = {() => <AccordionContainer/>}/>
+                <Route path="/addExam" component={() =>  <Form/>} />
+            </Switch>
+        </div>
+      </Router>
   );
 }
 

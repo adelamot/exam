@@ -27,8 +27,8 @@ export default class AccordionContainer extends React.Component {
         getExamList(this.examList);
     }
 
-    deleteCallback = (id,response) => {
-        if(response.status === 200) {
+    deleteCallback = (id, response) => {
+        if (response.status === 200) {
             this.setState(prevState => {
                 return {
                     examData: prevState.examData.filter(e => e.id !== id)
@@ -62,29 +62,29 @@ export default class AccordionContainer extends React.Component {
         return (
 
             <div className="accordion-container">
+
                 <header>
                     <h1>Exams</h1>
                 </header>
+                <div className="myDiv">
+                    {this.state.isLoaded ? this.state.examData.length ? (this.state.examData.map(exam =>
 
-                {this.state.isLoaded ? this.state.examData.length ? (this.state.examData.map( exam =>
-
-                    <AccordionItem key={exam.id}
-                                   academic_year={exam.year}
-                                   semester={exam.semester}
-                                   year={exam.year}
-                                   faculty={exam.faculty}
-                                   seats={exam.seats}
-                                   course={exam.course}
-                                   teacher={exam.teacher}
-                                   date={exam.date}
-                                   id={exam.id}
-                                   deleteExam={this.handleDeleteExam}
-                                   exam={exam}
-                                   expanded={false}
-                    />
-
-                )): <p>There are no exams at the moment </p> : (<div><LinearProgress/></div>) }
-
+                        <AccordionItem key={exam.id}
+                                       academic_year={exam.year}
+                                       semester={exam.semester}
+                                       year={exam.year}
+                                       faculty={exam.faculty}
+                                       seats={exam.seats}
+                                       course={exam.course}
+                                       teacher={exam.teacher}
+                                       // date={exam.date}
+                                       id={exam.id}
+                                       deleteExam={this.handleDeleteExam}
+                                       exam={exam}
+                                       expanded={false}
+                        />
+                    )) : <p>There are no exams at the moment </p> : (<div><LinearProgress/></div>)}
+                </div>
             </div>
 
         );

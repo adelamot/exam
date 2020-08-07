@@ -26,7 +26,7 @@ import java.util.UUID;
                 String driver = "com.mysql.cj.jdbc.Driver";
                 String url = "jdbc:mysql://127.0.0.1:3306/ibmdb";
                 String username = "root";
-                String password = "abcd";
+                String password = "root";
                 Class.forName(driver);
 
                 Connection conn = DriverManager.getConnection(url, username, password);

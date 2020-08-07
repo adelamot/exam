@@ -32,7 +32,7 @@ export default class ActionsInAccordionSummary extends React.Component {
             seats: this.props.seats,
             course: this.props.course,
             teacher: this.props.teacher,
-            date: this.props.date
+            // date: this.props.date
         }
     }
 
@@ -58,8 +58,8 @@ export default class ActionsInAccordionSummary extends React.Component {
             "faculty": this.state.faculty,
             "seats": this.state.seats,
             "course": this.state.course,
-            "teacher": this.state.teacher,
-            "date": this.state.date
+            "teacher": this.state.teacher
+            // "date": this.state.date
         }
 
         updateExam(this.updateCallback, newExam);
@@ -77,7 +77,7 @@ export default class ActionsInAccordionSummary extends React.Component {
     render() {
         return (
 
-            <Accordion id="accordion-item">
+            <Accordion className="accordion-item">
                 <AccordionSummary
                     expandIcon={<ExpandMoreIcon/>}
                     aria-label="Expand"
@@ -91,11 +91,12 @@ export default class ActionsInAccordionSummary extends React.Component {
                         control={<IconButton onClick={() => this.props.deleteExam(this.state.id)} aria-label="delete">
                             <DeleteIcon id="delete-icon"/></IconButton>}
                     />
-                    <label>{this.state.course + " - " + this.state.date}</label>
+                    <label>{this.state.course}</label>
                 </AccordionSummary>
 
                 <AccordionDetails>
                     <Typography color="textSecondary"  component={'span'}>
+
                         <TextField className="examData"
                                    label="Faculty"
                                    name="faculty"
@@ -123,15 +124,15 @@ export default class ActionsInAccordionSummary extends React.Component {
                                                           margin="normal"
                                                           variant="standard"
                         /> : null}
-                        {this.state.editMode ? <TextField className="examData"
-                                                          label="Date"
-                                                          name="date"
-                                                          value={this.state.date}
-                                                          onChange={this.changeHandler}
-                                                          disabled={!(this.state.editMode)}
-                                                          margin="normal"
-                                                          variant="standard"
-                        /> : null}
+                        {/*{this.state.editMode ? <TextField className="examData"*/}
+                        {/*                                  label="Date"*/}
+                        {/*                                  name="date"*/}
+                        {/*                                  value={this.state.date}*/}
+                        {/*                                  onChange={this.changeHandler}*/}
+                        {/*                                  disabled={!(this.state.editMode)}*/}
+                        {/*                                  margin="normal"*/}
+                        {/*                                  variant="standard"*/}
+                        {/*/> : null}*/}
 
                         <TextField className="examData"
                                    label="Session/Semester"
