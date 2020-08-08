@@ -59,5 +59,11 @@ public class ExamController {
         return ResponseEntity.ok().body(this.examService.getExamByYear(examYear));
     }
 
+    @CrossOrigin(origins="http://localhost:3000")
+    @GetMapping("/{sort}/{by}/{faculty}/{year}")
+    public ResponseEntity<List<Exam>> getExamBy_Faculty_Year(@PathVariable ("faculty") String faculty, @PathVariable ("year")int examYear){
+        return ResponseEntity.ok().body(this.examService.getExamBy_Faculty_Year(faculty,examYear));
+    }
+
 }
 

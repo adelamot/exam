@@ -20,35 +20,31 @@ public class ExamServiceImplementation implements ExamService {
     private ExamRepository examRepository;
 
     @Override
-    public List<Exam> getAllExams()
-    {
+    public List<Exam> getAllExams() {
         return examRepository.findAll();
     }
 
     @Override
-    public Exam getExamsById( long examId)
-    {
+    public Exam getExamsById(long examId) {
         Optional<Exam> existingExam = examRepository.findById(examId);
 
-        if(existingExam.isPresent()) {
+        if (existingExam.isPresent()) {
             return existingExam.get();
-        }else {
+        } else {
             throw new ResourceNotFoundException("Exam not found with id : " + examId);
         }
     }
 
     @Override
-    public Exam createExam( Exam exam)
-    {
+    public Exam createExam(Exam exam) {
         return examRepository.save(exam);
     }
 
     @Override
-    public Exam updateExam( Exam exam,  long examId)
-    {
+    public Exam updateExam(Exam exam, long examId) {
         Optional<Exam> existingExam = examRepository.findById(exam.getId());
 
-        if(existingExam.isPresent()) {
+        if (existingExam.isPresent()) {
             Exam examUpdate = existingExam.get();
 
             examUpdate.setAcademic_year(exam.getAcademic_year());
@@ -64,19 +60,18 @@ public class ExamServiceImplementation implements ExamService {
             examRepository.save(examUpdate);
 
             return examUpdate;
-        }else {
+        } else {
             throw new ResourceNotFoundException("Exam not found with id : " + exam.getId());
         }
     }
 
     @Override
-    public void deleteExam ( long examId)
-    {
+    public void deleteExam(long examId) {
         Optional<Exam> existingExam = examRepository.findById(examId);
 
-        if(existingExam.isPresent()) {
+        if (existingExam.isPresent()) {
             examRepository.delete(existingExam.get());
-        }else {
+        } else {
             throw new ResourceNotFoundException("Exam not found with id : " + examId);
         }
 
@@ -85,43 +80,61 @@ public class ExamServiceImplementation implements ExamService {
     // query
 
     @Override
-    public  List<Exam> getExamByFaculty(String examFaculty)
-    {
-        List<Exam> examsFaculty =   examRepository.findAll();
+    public List<Exam> getExamByFaculty(String examFaculty) {
+        List<Exam> examsFaculty = examRepository.findAll();
         Iterator<Exam> iter = examsFaculty.iterator();
 
-        while(iter.hasNext()) {
-            Exam ex=iter.next();
-            String facult=ex.getFaculty();
-            if(!facult.equals(examFaculty))
+        while (iter.hasNext()) {
+            Exam ex = iter.next();
+            String facult = ex.getFaculty();
+            if (!facult.equals(examFaculty))
                 iter.remove();
         }
 
-        if(!examsFaculty.isEmpty()) {
-        return examsFaculty;
-        }else {
+        if (!examsFaculty.isEmpty()) {
+            return examsFaculty;
+        } else {
             throw new ResourceNotFoundException("No exams with faculy : " + examFaculty + "found");
         }
     }
 
     @Override
-    public  List<Exam> getExamByYear(int examYear)
-    {
-        List<Exam> examsFaculty =   examRepository.findAll();
+    public List<Exam> getExamByYear(int examYear) {
+        List<Exam> examsFaculty = examRepository.findAll();
         Iterator<Exam> iter = examsFaculty.iterator();
 
-        while(iter.hasNext()) {
-            Exam ex=iter.next();
-            int facult=ex.getYear();
-            if(facult!=examYear)
+        while (iter.hasNext()) {
+            Exam ex = iter.next();
+            int academicYear = ex.getYear();
+            if (academicYear != examYear)
                 iter.remove();
         }
 
-        if(!examsFaculty.isEmpty()) {
+        if (!examsFaculty.isEmpty()) {
             return examsFaculty;
-        }else {
+        } else {
             throw new ResourceNotFoundException("No exams with year : " + examYear + "found");
         }
     }
 
+    @Override
+    public List<Exam> getExamBy_Faculty_Year(String examFaculty, int examYear) {
+        List<Exam> examStorage = examRepository.findAll();
+        Iterator<Exam> iter = examStorage.iterator();
+
+        while (iter.hasNext()) {
+            Exam ex = iter.next();
+            int academicYear = ex.getYear();
+            String facult = ex.getFaculty();
+            if (academicYear != examYear || !facult.equals(examFaculty))
+                iter.remove();
+        }
+
+        if (!examStorage.isEmpty()) {
+            return examStorage;
+        } else {
+            throw new ResourceNotFoundException("No exams found");
+        }
+
+    }
 }

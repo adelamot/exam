@@ -20,5 +20,7 @@ public interface ExamService {
 
     List<Exam> getExamByYear(int examYear);
 
+    List<Exam> getExamBy_Faculty_Year(String examFaculty,int examYear);
+
 }
 
