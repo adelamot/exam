@@ -1,24 +1,92 @@
 #addForm {
-    width: 50%;
-    height: 90%;
-    margin: 5% auto;
-    padding: 5em;
-    background-color: rgba(256,256,256,0.7);
-    border-radius: 18px 3px;
+    max-width: 700px;
+    min-width: 320px;
+    width: 1000px;
+    height: 70%; /*90%*/
+    margin: 3% auto;
+    padding: 4% 5%;
+    background-color: rgba(202, 240, 248, 0.8);
+    border-radius: 10px;
+    box-shadow: 2px 16px 32px rgba( 3, 4, 94,0.66);
+}
+
+#flex-container {
+    display: flex;
+}
+
+#container1, #container2 {
+    flex: 50%;
+}
+
+#container2 {
+    margin-left: 2%;
 }
 
 #add-button {
     padding: 3px;
-    margin: auto;
+    margin: 35px auto auto auto;
+    color: rgba(3, 4, 94, 1);
+    border-color: rgba(3, 4, 94, 1);
+}
+
+.examData {
+    width: 100% !important;
+    margin: 8px 0 !important;
 }
 
 #btn-div {
     margin-top: 2em;
 }
 
-@media (max-width: 768px){
+@media (max-width: 1200px) {
+
     #addForm {
-       width: 80%;
-        margin: 10% auto;
+        width: 980px;
+        min-width: 310px;
     }
+
+}
+
+@media (max-width: 992px) {
+
+    #addForm {
+        width: 700px;
+    }
+
+}
+
+@media (max-width: 768px) {
+
+    #addForm {
+       width: 560px;
+       min-width: 300px;
+    }
+
+    #flex-container {
+        display: block;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    #addForm {
+        margin-bottom: 0;
+        width: 470px;
+        padding: 10%;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    h1 {
+        margin-left: 30px;
+    }
+
+    #addForm {
+        margin-bottom: 0;
+        width: 80%;
+    }
+
 }

@@ -44,9 +44,17 @@ export default class AccordionContainer extends React.Component {
                 'success'
             );
         }
+        else {
+            Swal.fire(
+                'Not deleted!',
+                'Your exam has not been deleted!',
+                'error'
+            );
+        }
     }
 
     handleDeleteExam = (id) => {
+
         Swal.fire({
             title: 'Are you sure?',
             text: "You won't be able to revert this!",
@@ -71,17 +79,20 @@ export default class AccordionContainer extends React.Component {
                     <h1>Exams</h1>
                 </header>
                 <div className="myDiv">
+                    {/*if the array of exams is loaded we test to see if we have exams in the array.*/}
+                    {/*if we have exams in the array we iterate over it and make an AccordionItem for each exam*/}
                     {this.state.isLoaded ? this.state.examData.length ? (this.state.examData.map(exam =>
 
                         <AccordionItem key={exam.id}
-                                       academic_year={exam.year}
+                                       academic_year={exam.academic_year}
                                        semester={exam.semester}
                                        year={exam.year}
                                        faculty={exam.faculty}
                                        seats={exam.seats}
                                        course={exam.course}
                                        teacher={exam.teacher}
-                                       // date={exam.date}
+                                       date={exam.date}
+                                       time={exam.time}
                                        id={exam.id}
                                        deleteExam={this.handleDeleteExam}
                                        exam={exam}

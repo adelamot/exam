@@ -14,9 +14,11 @@ import SaveIcon from '@material-ui/icons/Save'
 import AccordionActions from '@material-ui/core/AccordionActions';
 import {updateExam} from "../../services";
 import Swal from "sweetalert2";
+import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
+
 export default class ActionsInAccordionSummary extends React.Component {
 
-    constructor(props){
+    constructor(props) {
         super(props);
         this.state = {
             editMode: false,
@@ -32,7 +34,8 @@ export default class ActionsInAccordionSummary extends React.Component {
             seats: this.props.seats,
             course: this.props.course,
             teacher: this.props.teacher,
-            // date: this.props.date
+            date: this.props.date,
+            time: this.props.time
         }
     }
 
@@ -41,7 +44,7 @@ export default class ActionsInAccordionSummary extends React.Component {
     }
 
     updateCallback = (response) => {
-        if(response.status !== 200) {
+        if (response.status !== 200) {
             Swal.fire({text: "Exam wasn't updated"});
             this.cancelHandler();
         }
@@ -58,8 +61,9 @@ export default class ActionsInAccordionSummary extends React.Component {
             "faculty": this.state.faculty,
             "seats": this.state.seats,
             "course": this.state.course,
-            "teacher": this.state.teacher
-            // "date": this.state.date
+            "teacher": this.state.teacher,
+            "date": this.state.date,
+            "time": this.state.time
         }
 
         updateExam(this.updateCallback, newExam);
@@ -93,109 +97,130 @@ export default class ActionsInAccordionSummary extends React.Component {
                     />
                     <label>{this.state.course}</label>
                 </AccordionSummary>
+                <ValidatorForm
+                    ref="form"
+                    onSubmit={this.saveHandler}
+                    onError={errors => console.log(errors)}
+                >
+                    <AccordionDetails>
 
-                <AccordionDetails>
-                    <Typography color="textSecondary"  component={'span'}>
+                        <Typography color="textSecondary" component={'span'}>
 
-                        <TextField className="examData"
-                                   label="Faculty"
-                                   name="faculty"
-                                   value={this.state.faculty}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
-                        <TextField className="examData"
-                                   label="Teacher"
-                                   name="teacher"
-                                   value={this.state.teacher}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
-                        {this.state.editMode ? <TextField className="examData"
-                                                          label="Course"
-                                                          name="course"
-                                                          value={this.state.course}
-                                                          onChange={this.changeHandler}
-                                                          disabled={!(this.state.editMode)}
-                                                          margin="normal"
-                                                          variant="standard"
-                        /> : null}
-                        {/*{this.state.editMode ? <TextField className="examData"*/}
-                        {/*                                  label="Date"*/}
-                        {/*                                  name="date"*/}
-                        {/*                                  value={this.state.date}*/}
-                        {/*                                  onChange={this.changeHandler}*/}
-                        {/*                                  disabled={!(this.state.editMode)}*/}
-                        {/*                                  margin="normal"*/}
-                        {/*                                  variant="standard"*/}
-                        {/*/> : null}*/}
+                            {this.state.editMode ? <TextValidator className="examsDataFirst"
+                                                                  label="Course"
+                                                                  name="course"
+                                                                  value={this.state.course}
+                                                                  onChange={this.changeHandler}
+                                                                  disabled={!(this.state.editMode)}
+                                                                  validators={['required']}
+                                                                  errorMessages={['this field is required']}
+                            /> : null}
+                            <div className="flex-container">
+                                <div className="container1">
+                                    <TextValidator className="examsData"
+                                                   label="Faculty"
+                                                   name="faculty"
+                                                   value={this.state.faculty}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                    <TextValidator className="examsData"
+                                                   label="Teacher"
+                                                   name="teacher"
+                                                   value={this.state.teacher}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
 
-                        <TextField className="examData"
-                                   label="Session/Semester"
-                                   name="semester"
-                                   value={this.state.semester}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
-                        <TextField className="examData"
-                                   label="Year of study"
-                                   name="year"
-                                   value={this.state.year}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
-                        <TextField className="examData"
-                                   label="Academic Year"
-                                   name="academic_year"
-                                   value={this.state.academic_year}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
-                        <TextField className="examData"
-                                   label="Number of seats"
-                                   name="seats"
-                                   value={this.state.seats}
-                                   onChange={this.changeHandler}
-                                   disabled={!(this.state.editMode)}
-                                   margin="normal"
-                                   variant="standard"
-                        />
+                                    <TextValidator className="examsData"
+                                                   label="Date"
+                                                   name="date"
+                                                   value={this.state.date}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                    <TextValidator className="examsData"
+                                                   label="Time"
+                                                   name="time"
+                                                   value={this.state.time}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                </div>
+                                <div className="container2">
+                                    <TextValidator className="examsData"
+                                                   label="Session/Semester"
+                                                   name="semester"
+                                                   value={this.state.semester}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                    <TextValidator className="examsData"
+                                                   label="Year of study"
+                                                   name="year"
+                                                   value={this.state.year}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                    <TextValidator className="examsData"
+                                                   label="Academic Year"
+                                                   name="academic_year"
+                                                   value={this.state.academic_year}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                    <TextValidator className="examsData"
+                                                   label="Number of seats"
+                                                   name="seats"
+                                                   value={this.state.seats}
+                                                   onChange={this.changeHandler}
+                                                   disabled={!(this.state.editMode)}
+                                                   validators={['required']}
+                                                   errorMessages={['this field is required']}
+                                    />
+                                </div>
+                            </div>
+                        </Typography>
 
-                    </Typography>
-                </AccordionDetails>
+                    </AccordionDetails>
 
-                <AccordionActions>
-                    {this.state.editMode ?
-                        <Button id="cancel-button"
-                                variant="outlined"
-                                size="small"
-                                color="primary"
-                                onClick={this.cancelHandler}>
-                            Cancel
-                        </Button> : null }
-                    {this.state.editMode ? null : <Button id="edit-button"
-                                                          variant="outlined"
-                                                          size="small"
-                                                          color="primary"
-                                                          onClick={this.editExam}>
-                        Edit
-                    </Button>}
-                    {this.state.editMode ? <IconButton className="save-button"
-                                                       aria-label="save"
-                                                       onClick={this.saveHandler}>
-                        <SaveIcon id="save-icon"/>
-                    </IconButton> : null}
-                </AccordionActions>
+                    <AccordionActions>
+                        {this.state.editMode ?
+                            <Button id="cancel-button"
+                                    variant="outlined"
+                                    size="small"
+                                    color="primary"
+                                    onClick={this.cancelHandler}>
+                                Cancel
+                            </Button> : null}
+                        {this.state.editMode ? null : <Button id="edit-button"
+                                                              variant="outlined"
+                                                              size="small"
+                                                              color="primary"
+                                                              onClick={this.editExam}>
+                            Edit
+                        </Button>}
+                        {this.state.editMode ? <IconButton className="save-button"
+                                                           aria-label="save"
+                                                           type="submit">
+                            <SaveIcon id="save-icon"/>
+                        </IconButton> : null}
+                    </AccordionActions>
+                </ValidatorForm>
             </Accordion>
 
         );
