@@ -39,13 +39,21 @@ public class Exam {
     @NotBlank
     private String teacher;
 
+    @Column (name = "date")
+    @NotBlank
+    private String date;
+
+    @Column (name = "time")
+    @NotBlank
+    private String time;
+
     public Exam()
     {
 
     }
 
     public Exam(@NotBlank String academic_year, @Min(1) int semester, @Min(1) int year, @NotBlank String faculty,
-                @Min(0) int seats, @NotBlank String course, @NotBlank String teacher) {
+                @Min(0) int seats, @NotBlank String course, @NotBlank String teacher, @NotBlank String date, @NotBlank String time) {
         this.academic_year = academic_year;
         this.semester = semester;
         this.year = year;
@@ -53,6 +61,8 @@ public class Exam {
         this.seats = seats;
         this.course = course;
         this.teacher = teacher;
+        this.date=date;
+        this.time=time;
     }
 
     public long getId() {
@@ -117,5 +127,19 @@ public class Exam {
 
     public void setTeacher(String teacher) {
         this.teacher = teacher;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) { this.date = date; }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

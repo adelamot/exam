@@ -18,9 +18,8 @@ public class ExamController {
 
     @CrossOrigin(origins="http://localhost:3000")
     @GetMapping
-    public ResponseEntity<List<Exam>> getAllExams(){
-        return ResponseEntity.ok().body(this.examService.getAllExams());
-    }
+    public ResponseEntity<List<Exam>> getAllExams(){ return ResponseEntity.ok().body(this.examService.getAllExams()); }
+
 
     @CrossOrigin(origins="http://localhost:3000")
     @GetMapping("/{id}")
@@ -46,6 +45,18 @@ public class ExamController {
     public HttpStatus deleteExam(@PathVariable ("id") long examId){
         this.examService.deleteExam(examId);
         return HttpStatus.OK;
+    }
+
+    @CrossOrigin(origins="http://localhost:3000")
+    @GetMapping("/{sort}/{by}/{faculty}")
+    public ResponseEntity<List<Exam>> getExamByFaculty(  @PathVariable ("faculty")String examFaculty){
+        return ResponseEntity.ok().body(this.examService.getExamByFaculty(examFaculty));
+    }
+
+    @CrossOrigin(origins="http://localhost:3000")
+    @GetMapping("/{sort}/{year}")
+    public ResponseEntity<List<Exam>> getExamByYear(  @PathVariable ("year")int examYear){
+        return ResponseEntity.ok().body(this.examService.getExamByYear(examYear));
     }
 
 }
