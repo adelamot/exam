@@ -1,0 +1,97 @@
+
+label {
+    margin: auto 0;
+}
+
+header {
+    top:0;
+    width: 49.5%;
+    margin: auto;
+}
+
+header h1 {
+    text-align: center;
+}
+
+.accordion {
+    width: 100%;
+    margin: auto;
+}
+
+.MuiFormControl-root {
+    width: 100%;
+    margin: 4% 0 !important;
+}
+
+.MuiTypography-root {
+    width: 100%;
+}
+
+.MuiInputBase-root {
+    width: 100% !important;
+}
+
+.flex-container {
+    display: flex;
+}
+
+.container1, .container2 {
+    flex: 49%;
+}
+
+.container2 {
+    margin-left: 2%;
+}
+
+.examsDataFirst {
+    width: 100% !important;
+    margin: 0 0 2% 0 !important;
+}
+
+.accordion-container {
+    width: 100%;
+    min-width: 310px;
+    max-width: 700px; /*600px*/
+    margin: auto;
+}
+
+.myDiv {
+    margin-top: 15px;
+}
+
+.accordion-item {
+    background-color: rgba(202, 240, 248, 0.8) !important;
+    border-radius: 10px !important;
+    box-shadow: 2px 16px 32px rgba( 3, 4, 94,0.66) !important;
+    margin: 5px !important;
+    padding: 1% 1.5%;
+}
+
+#delete-icon, #save-icon {
+    color: rgba(3, 4, 94, 1);
+}
+
+#edit-button, #cancel-button {
+    color: rgba(3, 4, 94, 1);
+    border-color: rgba(3, 4, 94, 1);
+}
+
+@media (max-width: 768px) {
+
+    .accordion-container {
+        max-width: 80%;
+    }
+
+    header {
+        width:80%;
+    }
+
+}
+
+@media (max-width: 576px) {
+
+    .flex-container {
+        display: block;
+    }
+
+}
