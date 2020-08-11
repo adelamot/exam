@@ -7,11 +7,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
+//
+//Class used for implementing the interface
+//
 
+//
+   //CRUD functions
+//
 @Service
 @Transactional
 public class ExamServiceImplementation implements ExamService {
@@ -20,25 +25,15 @@ public class ExamServiceImplementation implements ExamService {
     private ExamRepository examRepository;
 
     @Override
+    public Exam createExam(Exam exam) {
+        return examRepository.save(exam);
+    }
+
+    @Override
     public List<Exam> getAllExams() {
         return examRepository.findAll();
     }
 
-    @Override
-    public Exam getExamsById(long examId) {
-        Optional<Exam> existingExam = examRepository.findById(examId);
-
-        if (existingExam.isPresent()) {
-            return existingExam.get();
-        } else {
-            throw new ResourceNotFoundException("Exam not found with id : " + examId);
-        }
-    }
-
-    @Override
-    public Exam createExam(Exam exam) {
-        return examRepository.save(exam);
-    }
 
     @Override
     public Exam updateExam(Exam exam, long examId) {
@@ -76,8 +71,20 @@ public class ExamServiceImplementation implements ExamService {
         }
 
     }
+//
+    //Query functions
+//
+    @Override
+    public Exam getExamsById(long examId) {
+        Optional<Exam> existingExam = examRepository.findById(examId);
 
-    // query
+        if (existingExam.isPresent()) {
+            return existingExam.get();
+        } else {
+            throw new ResourceNotFoundException("Exam not found with id : " + examId);
+        }
+    }
+
 
     @Override
     public List<Exam> getExamByFaculty(String examFaculty) {
@@ -100,8 +107,8 @@ public class ExamServiceImplementation implements ExamService {
 
     @Override
     public List<Exam> getExamByYear(int examYear) {
-        List<Exam> examsFaculty = examRepository.findAll();
-        Iterator<Exam> iter = examsFaculty.iterator();
+        List<Exam> examsYear = examRepository.findAll();
+        Iterator<Exam> iter = examsYear.iterator();
 
         while (iter.hasNext()) {
             Exam ex = iter.next();
@@ -110,8 +117,8 @@ public class ExamServiceImplementation implements ExamService {
                 iter.remove();
         }
 
-        if (!examsFaculty.isEmpty()) {
-            return examsFaculty;
+        if (!examsYear.isEmpty()) {
+            return examsYear;
         } else {
             throw new ResourceNotFoundException("No exams with year : " + examYear + "found");
         }

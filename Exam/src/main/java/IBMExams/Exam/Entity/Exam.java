@@ -3,7 +3,13 @@ package IBMExams.Exam.Entity;
 import javax.persistence.*;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+//
+//Class used for storing information about an exam
+//
 
+//
+   //Hibernate annotations for specifying the mapping of an exam's fields
+//
 @Entity
 @Table(name = "exam")
 public class Exam {
@@ -46,7 +52,9 @@ public class Exam {
     @Column (name = "time")
     @NotBlank
     private String time;
-
+//
+    //Constructors
+//
     public Exam()
     {
 
@@ -64,7 +72,9 @@ public class Exam {
         this.date=date;
         this.time=time;
     }
-
+//
+    //Getters and setters
+//
     public long getId() {
         return id;
     }
@@ -142,4 +152,4 @@ public class Exam {
     public void setTime(String time) {
         this.time = time;
     }
-}
+}   

@@ -3,6 +3,9 @@ package IBMExams.Exam.Service;
 import IBMExams.Exam.Entity.Exam;
 
 import java.util.List;
+//
+//Interface used for creating the needed functionality
+//
 
 public interface ExamService {
 
