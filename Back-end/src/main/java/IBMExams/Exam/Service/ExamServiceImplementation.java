@@ -94,7 +94,7 @@ public class ExamServiceImplementation implements ExamService {
         while (iter.hasNext()) {
             Exam ex = iter.next();
             String facult = ex.getFaculty();
-            if (!facult.equals(examFaculty))
+            if (!facult.equalsIgnoreCase(examFaculty))
                 iter.remove();
         }
 
@@ -133,7 +133,7 @@ public class ExamServiceImplementation implements ExamService {
             Exam ex = iter.next();
             int academicYear = ex.getYear();
             String facult = ex.getFaculty();
-            if (academicYear != examYear || !facult.equals(examFaculty))
+            if (academicYear != examYear || !facult.equalsIgnoreCase(examFaculty))
                 iter.remove();
         }
 
