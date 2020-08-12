@@ -101,7 +101,9 @@ public class ExamServiceImplementation implements ExamService {
         if (!examsFaculty.isEmpty()) {
             return examsFaculty;
         } else {
-            throw new ResourceNotFoundException("No exams with faculy : " + examFaculty + "found");
+           // throw new ResourceNotFoundException("No exams with faculy : " + examFaculty + " found");
+            examsFaculty.clear();
+            return examsFaculty;
         }
     }
 
@@ -120,7 +122,9 @@ public class ExamServiceImplementation implements ExamService {
         if (!examsYear.isEmpty()) {
             return examsYear;
         } else {
-            throw new ResourceNotFoundException("No exams with year : " + examYear + "found");
+           // throw new ResourceNotFoundException("No exams with year : " + examYear + " found");
+            examsYear.clear();
+            return examsYear;
         }
     }
 
@@ -140,7 +144,9 @@ public class ExamServiceImplementation implements ExamService {
         if (!examStorage.isEmpty()) {
             return examStorage;
         } else {
-            throw new ResourceNotFoundException("No exams found");
+           // throw new ResourceNotFoundException("No exams found");
+            examStorage.clear();
+            return examStorage;
         }
 
     }
