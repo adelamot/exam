@@ -1,0 +1,21 @@
+
+.calendar {
+    margin-top: 20px;
+}
+
+.row-title {
+    padding: 4px;
+    background-color: rgba(3, 4, 94, 0.84);
+    width: 100%;
+    border-radius: 5px;
+}
+
+.container {
+    padding: 19px 0;
+    width: 80%;
+    margin: 8px auto;
+}
+
+.fc-view-harness, .fc-view-harness-active {
+    background-color: rgba(3, 4, 94, 0.84);
+}

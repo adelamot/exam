@@ -1,0 +1,48 @@
+.cursor-pointer {
+    cursor: pointer;
+}
+
+.scroll-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 5px;
+}
+
+.scroll-container .indicator {
+    height: 100%;
+    background: rgba(3, 4, 94, 0.9);
+}
+
+.scroll-to-top {
+    position: fixed;
+    bottom: 20px;
+    right: 2%;
+    width: 40px;
+    height: 40px;
+    border-radius: 100%;
+    background: rgba(3, 4, 94, 0.9); /*#03045e;*/
+    color: #caf0f8;
+    z-index: 4;
+}
+
+.scroll-to-top .icon {
+    margin-top: 10px;
+    animation: scrollTop 0.5s alternate infinite;
+}
+
+@keyframes scrollTop {
+    from {
+        transform: translateY(2px);
+    }
+    to {
+        transform: translateY(-1px);
+    }
+}
+
+@media (max-width: 992px) {
+    .scroll-to-top {
+        right: 50%;
+    }
+}

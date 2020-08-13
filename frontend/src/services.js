@@ -1,7 +1,4 @@
 import axios from "axios";
-
-// const adress = "https://88c2579e-33b7-449f-9315-0fb6dcfb4cb6.mock.pstmn.io";
-// const endpoint = "/examList"
 const endpoint = "/api/exams";
 const address ="http://localhost:8080";
 
@@ -48,4 +45,26 @@ export const addExam = (handleAdd, data) => {
         .catch(res=> {
             handleAdd(res);
         });
+}
+
+//get exams by faculty
+export const searchByFaculty = (handleSearch, faculty) => {
+    axios.get(address+endpoint+"/sort/by/"+faculty)
+        .then(res=> {
+            handleSearch(res);
+        })
+        .catch(res=> {
+            handleSearch(res);
+        })
+}
+
+//get exams by date
+export const searchByYear = (handleSearch, year) => {
+    axios.get(address+endpoint+"/sort/"+year)
+        .then(res => {
+            handleSearch(res);
+        })
+        .catch(res=> {
+            handleSearch(res);
+        })
 }

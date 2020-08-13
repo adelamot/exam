@@ -4,6 +4,8 @@ import {deleteExam, getExamList} from "../../services";
 import Swal from "sweetalert2";
 import LinearProgress from "@material-ui/core/LinearProgress";
 import './accordion.css';
+import SearchBox from "../Search/SearchBox";
+
 
 export default class AccordionContainer extends React.Component {
 
@@ -12,6 +14,8 @@ export default class AccordionContainer extends React.Component {
         this.state = {
             examData: [],
             isLoaded: false,
+            search: "",
+            isSearching: false
         };
     }
 
@@ -21,10 +25,24 @@ export default class AccordionContainer extends React.Component {
                 ...this.state,
                 examData: response.data,
                 isLoaded: true
-             });
+            });
         }
         else
-            console.log("raspuns server = "+ response);
+            console.log(response);
+    }
+
+    handleSearchCallback = (response) => {
+
+        if(response.status === 200){
+            this.setState({
+                ...this.state,
+                isSearching: true,
+                examData: response.data,
+                isLoaded: true
+            });
+        }
+        else
+            this.setState({...this.state, isLoaded: true, isSearching: false});
     }
 
     componentDidMount() {
@@ -33,10 +51,8 @@ export default class AccordionContainer extends React.Component {
 
     deleteCallback = (id, response) => {
         if (response.status === 200) {
-            this.setState(prevState => {
-                return {
-                    examData: prevState.examData.filter(e => e.id !== id)
-                };
+            this.setState(
+                {examData: this.state.examData.filter(e => e.id !== id)
             });
             Swal.fire(
                 'Deleted!',
@@ -70,15 +86,25 @@ export default class AccordionContainer extends React.Component {
         });
     }
 
+    searchHandler = (value) => {
+        this.setState({search: value});
+    }
+
+    cancelSearch = () => {
+        this.setState({isSearching: false});
+        getExamList(this.examList);
+
+    }
     render() {
         return (
 
             <div className="accordion-container">
-
                 <header>
-                    <h1>Exams</h1>
+                    {this.state.isSearching ? <h1>Search results</h1> : <h1>Exams</h1> }
+                    <SearchBox cancelSearch={this.cancelSearch} search={this.state.search||''} searchHandler={this.searchHandler} handleSearchCallback={this.handleSearchCallback}/>
                 </header>
                 <div className="myDiv">
+
                     {/*if the array of exams is loaded we test to see if we have exams in the array.*/}
                     {/*if we have exams in the array we iterate over it and make an AccordionItem for each exam*/}
                     {this.state.isLoaded ? this.state.examData.length ? (this.state.examData.map(exam =>
@@ -96,9 +122,9 @@ export default class AccordionContainer extends React.Component {
                                        id={exam.id}
                                        deleteExam={this.handleDeleteExam}
                                        exam={exam}
-                                       expanded={false}
                         />
-                    )) : <p>There are no exams at the moment </p> : (<div><LinearProgress/></div>)}
+                    )) : <p>There are no exams</p> : (<div className="progress-bar"><LinearProgress/></div>)}
+
                 </div>
             </div>
 

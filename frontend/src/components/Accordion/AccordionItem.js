@@ -9,7 +9,6 @@ import Button from '@material-ui/core/Button'
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 import './accordion.css';
-import TextField from '@material-ui/core/TextField';
 import SaveIcon from '@material-ui/icons/Save'
 import AccordionActions from '@material-ui/core/AccordionActions';
 import {updateExam} from "../../services";
@@ -22,7 +21,6 @@ export default class ActionsInAccordionSummary extends React.Component {
         super(props);
         this.state = {
             editMode: false,
-            expanded: this.props.expanded,
             inputError: false,
             prevState: null,
             deleteExam: this.props.handleDeleteExam,
@@ -47,6 +45,9 @@ export default class ActionsInAccordionSummary extends React.Component {
         if (response.status !== 200) {
             Swal.fire({text: "Exam wasn't updated"});
             this.cancelHandler();
+        }
+        else {
+            this.setState({examData: response.data, exams: response.data});
         }
     }
 

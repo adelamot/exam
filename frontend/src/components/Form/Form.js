@@ -4,6 +4,7 @@ import Button from "@material-ui/core/Button";
 import {addExam} from "../../services.js";
 import {ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import Typography from "@material-ui/core/Typography";
+import Swal from "sweetalert2";
 
 export default class Form extends React.Component {
 
@@ -28,10 +29,32 @@ export default class Form extends React.Component {
     }
 
     submitCallback = (response, data) => {
-        if (response.status === 200)
-            console.log(data);
-        else
-            console.log("error");
+        if (response.status === 200) {
+            Swal.fire(
+                'Added!',
+                'Your exam was successfully added.',
+                'success'
+            );
+           this.setState({
+                id: "",
+                academic_year: "",
+                semester: "",
+                year: "",
+                faculty: "",
+                seats: "",
+                course: "",
+                teacher: "",
+                date: "",
+                time: ""
+            });
+        }
+        else {
+            Swal.fire(
+                'Not added!',
+                'Your exam has not been added!',
+                'error'
+            );
+        }
     }
     submitHandler = () => {
         let newExam = {
@@ -102,6 +125,7 @@ export default class Form extends React.Component {
                                                validators={['required']}
                                                errorMessages={['this field is required']}
                                 />
+
                                 <TextValidator className="examData"
                                                label="Session/Semester"
                                                name="semester"
@@ -120,6 +144,7 @@ export default class Form extends React.Component {
                                                errorMessages={['this field is required', 'incorrect format']}
                                 />
                             </div>
+
                             <div id="container2">
                                 <TextValidator className="examData"
                                                label="Teacher"
@@ -157,6 +182,7 @@ export default class Form extends React.Component {
                                                errorMessages={['this field is required', 'please enter a number between 10 and 500']}
                                 />
                             </div>
+
                         </div>
                     </Typography>
 

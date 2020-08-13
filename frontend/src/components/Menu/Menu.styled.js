@@ -24,6 +24,7 @@ export const StyledMenu = styled.nav`
   
   @media (max-width: ${({ theme }) => theme.mobile}) {
     width: 100%;
+    background: rgba(202, 240, 248, 1);
   }
 
   a {

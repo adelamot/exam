@@ -51,7 +51,7 @@ header h1 {
 .accordion-container {
     width: 100%;
     min-width: 310px;
-    max-width: 700px; /*600px*/
+    max-width: 700px;
     margin: auto;
 }
 
@@ -66,7 +66,9 @@ header h1 {
     margin: 5px !important;
     padding: 1% 1.5%;
 }
-
+.progress-bar {
+    margin-top: 40%;
+}
 #delete-icon, #save-icon {
     color: rgba(3, 4, 94, 1);
 }

@@ -1,0 +1,91 @@
+.search-box {
+    position: absolute;
+    top: 18px;
+    right: 5px;
+    cursor: pointer;
+}
+
+.fas .fa-search .fa-times {
+    position: absolute;
+    top: 4%;
+    right: 5px;
+    background-color: transparent;
+}
+
+#search-button {
+    color: #03045e;
+    display: inline;
+    padding: 0;
+    margin: 0;
+    position: absolute;
+    top:18px;
+    right: 15px;
+    z-index: 5;
+    background-color: transparent;
+    border: none;
+}
+#search-button:focus, #search-button:hover {
+    cursor: pointer;
+}
+#search-input {
+    height: 50px;
+    width: 0;
+    padding: 0 0 0 50px;
+    border-radius: 40px;
+    border: 0;
+    background-color: rgba(256,256,256,0.7);
+    transition: 1.5s;
+}
+
+#search-input:focus, #search-input:hover {
+    width: 300px;
+    padding-right: 40px;
+}
+
+#search-box {
+    content: "\f002";
+    font-family: 'FontAwesome';
+    position: absolute;
+    right: 18px;
+    line-height: 50px;
+    color: #03045e;
+}
+
+@media (max-width: 992px) {
+
+    #search-input:focus, #search-input:hover{
+        width: 200px;
+    }
+}
+
+@media (max-width: 768px) {
+
+    #search-input:focus, #search-input:hover{
+        width: 100px;
+    }
+}
+
+@media (max-width: 576px) {
+
+    #search-input:focus, #search-input:hover{
+        background-color: rgba(256,256,256,1);
+        width: 300px;
+    }
+
+}
+
+@media (max-width: 480px) {
+
+    #search-input:focus, #search-input:hover{
+        background-color: rgba(256,256,256,1);
+        width: 240px;
+    }
+}
+
+@media (max-width: 400px) {
+
+    #search-input:focus, #search-input:hover{
+        background-color: rgba(256,256,256,1);
+        width: 150px;
+    }
+}
